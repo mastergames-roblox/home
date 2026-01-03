@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Games</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --card-bg: #1a1a20;
+            --accent-color: #3a86ff;
+            --text-color: #ffffff;
+            --text-secondary: #b0b0b0;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigatie */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            background: rgba(15, 15, 18, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Sectie */
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(15, 15, 18, 0.7), rgba(15, 15, 18, 0.9)), 
+                        url('banner.webp');
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 10px 20px rgba(58, 134, 255, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(58, 134, 255, 0.5);
+        }
+
+        .cta-button.disabled {
+            background-color: #444;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Secties */
+        section {
+            padding: 100px 10%;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Game Card Styling voor 1 vierkante game */
+        .game-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 450px; /* Mooie breedte voor 1 game */
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .game-card:hover {
+            border-color: var(--accent-color);
+        }
+
+        .game-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Forceert het vierkant */
+            overflow: hidden;
+        }
+
+        .game-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Vult het vierkant netjes op */
+        }
+
+        .card-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Tags / Badges */
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tag.live {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .tag.soon {
+            background: rgba(241, 196, 15, 0.2);
+            color: var(--warning-color);
+            border: 1px solid var(--warning-color);
+        }
+
+        .game-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .game-card p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        /* Contact Formulier */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, textarea {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #0a0a0c;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { flex-direction: column; padding: 20px; }
+            nav ul { margin-top: 15px; }
+            nav ul li { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">Master Games</span>
+        </a>
+        <ul>
+            <li><a href="#about">Over Ons</a></li>
+            <li><a href="#games">Games</a></li>
+            <li><a href="#announcements">Nieuws</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1 data-aos="fade-down">Master Games</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 30px; color: var(--text-secondary);" data-aos="fade-up">
+            De ultieme Roblox community voor fanatieke spelers.
+        </p>
+        <a href="https://www.roblox.com/communities/35311596/Master-Games#!/about" target="_blank" class="cta-button" data-aos="zoom-in">Join Community</a>
+    </header>
+
+    <section id="about" data-aos="fade-up">
+        <h2>Over Ons</h2>
+        <div class="game-card" style="max-width: 800px; margin: 0 auto; padding: 40px; text-align: center;">
+            <p>Master Games is een groeiende Roblox community waar passie voor gaming centraal staat. Wij brengen spelers samen, organiseren events en bouwen aan de vetste ervaringen op het platform. Of je nu een developer bent of een speler, bij ons vind je je plek.</p>
+        </div>
+    </section>
+
+    <section id="games">
+        <h2 data-aos="fade-up">Onze Games</h2>
+        <div class="game-container">
+            <div class="game-card" data-aos="zoom-in">
+                <div class="game-img-wrapper">
+                    <img src="I'm just a plant, bro.png" alt="I'm just a plant, bro" class="game-img">
+                </div>
+                <div class="card-content">
+                    <div class="tag soon">Coming Soon</div>
+                    
+                    <h3>I'm just a plant, bro</h3>
+                    <p>Speel PropHunt op een totaal ander niveau! Kun jij overleven als plant?</p>
+                    
+                    <a href="#" class="cta-button disabled">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="announcements" data-aos="fade-up">
+        <h2>Aankondigingen</h2>
+        <div style="display: flex; justify-content: center;">
+            <div class="game-card" style="max-width: 600px;">
+                <div class="card-content">
+                    <p style="color: var(--accent-color); font-size: 0.8rem; font-weight: bold;">3 JANUARI 2026</p>
+                    <h3>Nieuwe Site Online</h3>
+                    <p>Vanaf vandaag is onze officiële community portal live. Bekijk hier alle updates en projecten!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" data-aos="fade-up">
+        <h2>Contact</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Naam" required>
+            <input type="email" placeholder="E-mailadres" required>
+            <textarea rows="5" placeholder="Jouw bericht..." required></textarea>
+            <button type="submit" class="cta-button">Verstuur Bericht</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Master Games Community</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId) || document.body;
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
